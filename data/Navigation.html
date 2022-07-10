@@ -1,0 +1,39 @@
+<link rel="stylesheet" type="text/css" href="./css/Navigation.css">
+<link rel="stylesheet" type="text/css" href="./css/reset.css">
+<link rel="stylesheet" type="text/css" href="./css/response.css">
+
+<script>
+    var t;
+    $(".menu-icon").click(function(e){
+        if(t){
+            $("#menu-icon").css({'background-image':'url(./img/navigation_on.png)'});
+            t=false;
+        }else{
+            $("#menu-icon").css({'background-image':'url(./img/navigation_off.png)'});
+            t=true;
+        }
+        
+        $(this).toggleClass("active");
+        $(".navigation-menu").toggleClass("active");
+        $(".menu-icon i").toggleClass("fa-times");
+    });
+
+    $('.navigation-menu #next').click(function(){
+        websocket.onclose;
+    });
+  </script>
+<div class="inner-width">
+    <h1>Menu</h1>
+    <div class="menu-icon" id="menu-icon">
+        <!-- <i class="fas fa-align-right"></i> -->
+    </div>
+</div>
+<div class="navigation-menu">
+    <nav>
+        <li><a id="next" href="./LED_Button.html">Home</a></li>
+        <!-- <li><a id="next" href="./connect.html">Connect</a></li> -->
+        <!-- <li><a id="next" href="#">Services</a></li>
+        <li><a id="next" href="#">Works</a></li>
+        <li><a id="next" href="#">Contact</a></li> -->
+    </nav>
+</div>
