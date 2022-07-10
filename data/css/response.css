@@ -1,0 +1,12 @@
+/* 해상도 400px 반응형 스타일 */
+@media all and (max-width:400px) {
+    #wifi .box {
+        overflow: scroll;
+        float: none;
+        width: 90%;
+    }
+
+    .inner-width {
+        max-width: 90%;
+    }
+}
