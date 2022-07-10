@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <!-- 페이지 이름 입력 -->
+    <title>WIFI 목록</title>
+
+    <meta http-equiv="Content-Type" Content="text/html; charset=utf-8">
+    <meta name='viewport'
+        content='width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no'>
+
+    <!-- 디자인 -->
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+
+    <!-- 스크립트 -->
+    <script src="lib/jquery-1.12.4.min.js"></script>
+</head>
+
+<body>
+    <header id='Navigation'></header>
+
+    <div class="container">
+        <div class="shadow">
+            <button type="button" id="button" class="click">
+                BUTTON
+            </button>
+        </div>
+    </div>
+
+</body>
+
+<script language="JavaScript">
+    const gateway = `ws://${window.location.hostname}/ws`;
+    const websocket = new WebSocket(gateway);
+
+    const value = ["ON", "OFF"];
+    let data = {
+        HTTP:"LED_Button.html",
+        BUTTON1: null
+    }
+
+    function onOpen(event) {
+        console.log('Connection opened');
+        websocket.onmessage = function (params) {
+            // console.log(params.data);
+            var par = Number(params.data);
+
+            data.BUTTON1 = value[par];
+            $("#button").text(data.BUTTON1);
+
+            if (par) {
+                $(".click").css({ 'background-color': '#db5461', 'border-style': 'outset', 'box-shadow': 'none' });
+                data.BUTTON1 = "OFF";
+            } else {
+                $(".click").css({
+                    'background-color': '#54d367',
+                    'border-style': 'inset',
+                    'box-shadow': '0 0 30px 30px rgba(84, 211, 103, 1)'
+                });
+                data.BUTTON1 = "ON";
+            }
+        }
+        console.log(data);
+        websocket.send(JSON.stringify(data));
+
+    }
+
+    $("#button").click(function () {
+        websocket.onmessage = function (params) {
+            // console.log(params.data);
+            var par = Number(params.data);
+
+            data.BUTTON1 = value[par];
+            $("#button").text(data.BUTTON1);
+
+            if (par) {
+                $(".click").css({ 'background-color': '#db5461', 'border-style': 'outset', 'box-shadow': 'none' });
+                data.BUTTON1 = "OFF";
+            } else {
+                $(".click").css({
+                    'background-color': '#54d367',
+                    'border-style': 'inset',
+                    'box-shadow': '0 0 30px 30px rgba(84, 211, 103, 1)'
+                });
+                data.BUTTON1 = "ON";
+            }
+        }
+
+        console.log(data);
+        websocket.send(JSON.stringify(data));
+    });
+
+
+    {
+        $(document).ready(function () {
+            websocket.onopen = onOpen;
+
+            // 공통 header
+            $("#Navigation").load("Navigation.html");
+        });
+        $("#button").bind('touchstart', function (e) {
+            $(this).css("box-shadow", '0 0 20px -5px rgba(0, 0, 0, 1)');
+        });
+        $("#button").bind('touchend', function (e) {
+            $(this).css("box-shadow", '');
+        });
+    }
+</script>
+
+</html>
